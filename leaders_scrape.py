@@ -146,14 +146,21 @@ def supabase(re_scrape: bool = False):
         states_url_set.add(state['wikipedia_link'])
 
     # get all leader wikipedia links
-    leader_links = []
+    leader_links = set()
     for leader in leaders:
-        leader_links.append(leader['wikipedia_link'])
+        leader_links.add(leader['wikipedia_link'])
 
     if re_scrape:
         scrape(exists=leader_links)
     with open('leaders.json', 'r') as f:
-        new_leaders, leader_links_list = json.loads(f.read())
+        leaders_to_add, leader_links_list = json.loads(f.read())
+
+    # remove all existing leaders from leaders_to_add
+    new_leaders = []
+    for leader in leaders_to_add:
+        if leader['wikipedia_link'] not in leader_links:
+            new_leaders.append(leader)
+            leader_links.add(leader['wikipedia_link'])
 
     states_to_insert = []
     leader_states = []
@@ -172,13 +179,13 @@ def supabase(re_scrape: bool = False):
     leader_links_set = set(leader_links_list)
 
     # deduplicate new leaders
-    new_new_leaders = []
-    new_new_leaders_links = set()
-    for leader in new_leaders:
-        if leader['wikipedia_link'] not in new_new_leaders_links:
-            new_new_leaders.append(leader)
-            new_new_leaders_links.add(leader['wikipedia_link'])
-    new_leaders = new_new_leaders
+    # new_new_leaders = []
+    # new_new_leaders_links = set()
+    # for leader in new_leaders:
+    #     if leader['wikipedia_link'] not in new_new_leaders_links:
+    #         new_new_leaders.append(leader)
+    #     new_new_leaders_links.add(leader['wikipedia_link'])
+    # new_leaders = new_new_leaders
 
     # insert new leaders, insert new states, check if leaders are active based on links lists, insert leader_states
 
@@ -200,6 +207,28 @@ def supabase(re_scrape: bool = False):
 
     # insert leader_states
     supabase.table('leader_states').insert(leader_states).execute()
+
+    # insert leader_categories
+    leader_categories, count = supabase.table('leader_categories').select('*').eq('category', 'current').execute()
+
+    leader_categories = leader_categories[1]
+
+    categories_url_set = set()
+
+    for leader_category in leader_categories:
+        categories_url_set.add(leader_category['leader_link'])
+
+    # for every leader in wikipedia_links, insert into leader_categories
+    leader_categories_to_insert = [
+        {
+            'leader': leader_link,
+            'category': 'current'
+        }
+        for leader_link in leader_links_list if leader_link not in categories_url_set
+    ]
+
+    supabase.table('leader_categories').insert(leader_categories_to_insert).execute()
+
 
 supabase(re_scrape=False)
 

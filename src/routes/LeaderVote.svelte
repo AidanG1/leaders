@@ -2,7 +2,7 @@
 	import type { Database } from '$lib/supabase'
 	import { fly, slide } from 'svelte/transition'
 	import { createEventDispatcher, tick } from 'svelte'
-	import { chn } from '$lib/hide_names.svelte'
+	import { chn } from '$lib/stores.svelte'
 
 
 	let {

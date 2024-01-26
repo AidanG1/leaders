@@ -3,6 +3,7 @@
 	import '../app.css'
 	import Themes from './Themes.svelte'
 	import HideNames from './HideNames.svelte'
+	import AnimationSpeed from './AnimationSpeed.svelte'
 </script>
 
 <div class="h-screen w-screen">
@@ -59,6 +60,7 @@
 		<nav>
 			<Themes />
 			<HideNames />
+			<AnimationSpeed />
 		</nav>
 	</footer>
 </div>

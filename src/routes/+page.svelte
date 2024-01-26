@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte'
 	import { supabase } from '$lib/db'
 	import LeaderVote from './LeaderVote.svelte'
+	import { as } from '$lib/stores.svelte'
 
 	let matchups: Matchup[] = $state([])
 
@@ -10,8 +11,6 @@
 		const res = await fetch('/matchups/10')
 		matchups = await res.json().then((data) => data.matchups)
 	})
-
-	const animation_duration = 2000
 
 	let is_voting = false
 
@@ -42,7 +41,7 @@
 			}
 
 			is_voting = false
-		}, animation_duration)
+		}, as.speed)
 	}
 
 	const leaders: ('leader1' | 'leader2')[] = ['leader1', 'leader2']
@@ -56,7 +55,7 @@
 			<LeaderVote
 				on:submit_vote={(e) => submit_vote(e.detail.winner)}
 				leader={matchups[0][leaders[0]]}
-				{animation_duration}
+				animation_duration={as.speed}
 				loser={loser?.id === matchups[0][leaders[0]].id}
 			/>
 		</div>
@@ -64,7 +63,7 @@
 		<LeaderVote
 			on:submit_vote={(e) => submit_vote(e.detail.winner)}
 			leader={matchups[0][leaders[1]]}
-			{animation_duration}
+			animation_duration={as.speed}
 			loser={loser?.id === matchups[0][leaders[1]].id}
 		/>
         </div>

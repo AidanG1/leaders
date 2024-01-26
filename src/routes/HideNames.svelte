@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import { chn } from '$lib/hide_names.svelte'
+	import { chn } from '$lib/stores.svelte'
 
 	onMount(() => {
 		const stored = localStorage.getItem('hide_names')
