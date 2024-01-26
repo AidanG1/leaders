@@ -61,7 +61,7 @@
 		</svg>
 	</div>
 	<ul
-		class="dropdown-content z-[1] p-2 shadow-2xl bg-base-300 rounded-box w-52 overflow-y-scroll max-h-screen"
+		class="dropdown-content z-[1] p-2 shadow-2xl bg-base-300 rounded-box w-52 overflow-y-scroll max-h-40 text-base-content"
 	>
 		{#each themes as theme}
 			<li>

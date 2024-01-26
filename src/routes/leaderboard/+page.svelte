@@ -22,7 +22,7 @@
     <h1>Loading...</h1>
     
 {:then leaders}
-    <table class="table">
+    <table class="table w-screen">
         <thead>
             <tr>
                 <th>Image</th>
@@ -39,7 +39,7 @@
                     <td class="text-xl text-primary"><a href="https://en.wikipedia.org/wiki/{leader.wikipedia_link}">{leader.leader_name}</a></td>
                     <td>{leader.total_wins}</td>
                     <td>{leader.total_losses}</td>
-                    <td>{leader.win_percentage * 100}%</td>
+                    <td>{(leader.win_percentage * 100).toFixed(2)}%</td>
                 </tr>
             {/each}
         </tbody>

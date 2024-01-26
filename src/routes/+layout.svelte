@@ -5,7 +5,7 @@
 	import HideNames from './HideNames.svelte'
 </script>
 
-<div class="h-screen w-screen overflow-x-hidden">
+<div class="h-screen w-screen">
 	<div class="navbar bg-base-100 border-b-2 border-primary">
 		<div class="navbar-start">
 			<div class="dropdown">
@@ -41,22 +41,24 @@
 				<li><a href="https://github.com/AidanG1/leaders" target="_blank">Source Code</a></li>
 			</ul>
 		</div>
-		<div class="navbar-end">
-            <Themes />
-            <HideNames />
-		</div>
 	</div>
-	<div class="container px-4">
+	<div class="container">
 		<slot />
 	</div>
-	<footer class="footer p-10 bg-neutral text-neutral-content">
+	<footer class="footer p-10 bg-neutral text-neutral-content h-fit">
 		<aside>
-            <img src="/hotface.png" class="w-36 h-36" alt="Hot face logo">
+			<img src="/hotface.png" class="w-36 h-36" alt="Hot face logo" />
 			<p>🔥🥵🥺 World Leaders<br />Click the hottest one</p>
 		</aside>
 		<nav>
 			<h6 class="footer-title">Instructions</h6>
-            <p>Get shown 2 world leaders, click the hottest one. Contribute to science! It's that easy!</p>
+			<p>
+				Get shown 2 world leaders, click the hottest one. Contribute to science! It's that easy!
+			</p>
+		</nav>
+		<nav>
+			<Themes />
+			<HideNames />
 		</nav>
 	</footer>
 </div>

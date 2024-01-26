@@ -48,7 +48,7 @@
 	const leaders: ('leader1' | 'leader2')[] = ['leader1', 'leader2']
 </script>
 
-<div class="grid grid-cols-2 h-full justify-items-center w-screen">
+<div class="grid grid-cols-2 h-full justify-items-center w-screen overflow-x-hidden">
 	{#if matchups.length === 0}
 		<h1>Loading...</h1>
 	{:else}

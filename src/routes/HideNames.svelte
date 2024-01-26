@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-    import { chn } from '$lib/hide_names.svelte';
-    
+	import { chn } from '$lib/hide_names.svelte'
+
 	onMount(() => {
 		const stored = localStorage.getItem('hide_names')
 
@@ -22,4 +22,9 @@
 	})
 </script>
 
-<input type="checkbox" class="toggle" bind:checked={chn.hide_names} />
+<div class="form-control">
+	<label class="label cursor-pointer">
+		<span class="label-text mr-2">Hide Names</span>
+		<input type="checkbox" class="toggle" bind:checked={chn.hide_names} />
+	</label>
+</div>
