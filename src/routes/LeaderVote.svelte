@@ -4,15 +4,16 @@
 	import { createEventDispatcher, tick } from 'svelte'
 	import { chn } from '$lib/stores.svelte'
 
-
 	let {
 		leader,
 		animation_duration = 2000,
-		loser = false
+		loser = false,
+		position
 	} = $props<{
 		leader: Database['public']['Tables']['leaders']['Row']
 		animation_duration: number
 		loser: boolean
+		position: 0 | 1
 	}>()
 
 	let show_image = $state(false)
@@ -63,7 +64,17 @@
 			show_image = true
 		})
 	})
+
+	const handleKey = (e: KeyboardEvent) => {
+		if (position === 0 && (e.key === 'ArrowLeft' || e.key === '1')) {
+			submit_vote(leader)
+		} else if (position === 1 && (e.key === 'ArrowRight' || e.key === '2')) {
+			submit_vote(leader)
+		}
+	}
 </script>
+
+<svelte:window on:keydown={handleKey} />
 
 <div class="p-2" in:fly out:slide bind:this={div}>
 	<button on:click={() => submit_vote(leader)} class="flex justify-center w-full max-w-1/2">

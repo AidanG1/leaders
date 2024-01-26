@@ -59,6 +59,7 @@
 				leader={matchups[0][leaders[0]]}
 				animation_duration={as.speed}
 				loser={loser?.id === matchups[0][leaders[0]].id}
+				position={0}
 			/>
 		</div>
 		<div class="border-l-2 border-primary w-full">
@@ -67,6 +68,7 @@
 				leader={matchups[0][leaders[1]]}
 				animation_duration={as.speed}
 				loser={loser?.id === matchups[0][leaders[1]].id}
+				position={1}
 			/>
 		</div>
 	{/if}
