@@ -2,6 +2,8 @@
 	import type { Database } from '$lib/supabase'
 	import { fly, slide } from 'svelte/transition'
 	import { createEventDispatcher, tick } from 'svelte'
+	import { chn } from '$lib/hide_names.svelte'
+
 
 	let {
 		leader,
@@ -73,9 +75,11 @@
 			/>
 		{/if}
 	</button>
-	<h2 class="text-center mt-4">
-		<a href="https://en.wikipedia.org/wiki/{leader.wikipedia_link}" class="text-primary text-2xl">
-			{leader.name} <span class="text-secondary">{leader.title}</span>
-		</a>
-	</h2>
+	{#if !chn.hide_names}
+		<h2 class="text-center mt-4">
+			<a href="https://en.wikipedia.org/wiki/{leader.wikipedia_link}" class="text-primary text-2xl">
+				{leader.name} <span class="text-secondary">{leader.title}</span>
+			</a>
+		</h2>
+	{/if}
 </div>
