@@ -4,9 +4,11 @@ import type { Matchup } from '$lib/types'
 
 export async function GET({ params }) {
     const { data, error: fetchError } = await supabase
-        .from('leaders')
-        .select()
+        .from('leader_categories')
+        .select('leader(id, created_at, name, wikipedia_link, image_url, title), *')
+        .eq('category', params.category)
 
+    
     if (fetchError) {
         return error(500, fetchError.message)
     }
@@ -26,8 +28,8 @@ export async function GET({ params }) {
 
     for (let i = 0; i < numMatchups; i++) {
         const matchup = {
-            leader1: data[Math.floor(Math.random() * data.length)],
-            leader2: data[Math.floor(Math.random() * data.length)]
+            leader1: data[Math.floor(Math.random() * data.length)].leader,
+            leader2: data[Math.floor(Math.random() * data.length)].leader
         }
         matchups.push(matchup)
     }

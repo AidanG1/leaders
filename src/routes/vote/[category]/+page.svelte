@@ -2,14 +2,18 @@
 	import type { Leader, Matchup } from '$lib/types'
 	import { onMount } from 'svelte'
 	import { supabase } from '$lib/db'
-	import LeaderVote from './LeaderVote.svelte'
+	import LeaderVote from '../../LeaderVote.svelte'
 	import { as } from '$lib/stores.svelte'
+
+	let { data } = $props()
 
 	let matchups: Matchup[] = $state([])
 
 	onMount(async () => {
-		const res = await fetch('/matchups/10')
-		matchups = await res.json().then((data) => data.matchups)
+		console.log(data)
+		const res = await fetch(`/matchups/${data.category}/10`)
+		matchups = await res.json().then((j) => j.matchups)
+		console.log(matchups)
 	})
 
 	let is_voting = false
@@ -23,21 +27,19 @@
 			matchups[0][leaders[0]].id === winner.id ? matchups[0][leaders[1]] : matchups[0][leaders[0]]
 
 		is_voting = true
-		const { data, error } = await supabase
+		const { data: votesData, error } = await supabase
 			.from('votes')
-			.insert([{ winner: winner.id, loser: loser.id }])
+			.insert([{ winner: winner.id, loser: loser.id, category: data.category }])
 		if (error) {
 			console.log(error)
 		}
-
-		console.log(data)
 
 		setTimeout(async () => {
 			matchups.shift()
 
 			if (matchups.length === 0) {
-				const res = await fetch('/matchups/10')
-				matchups = await res.json().then((data) => data.matchups)
+				const res = await fetch(`/matchups/${data.category}/10`)
+				matchups = await res.json().then((j) => j.matchups)
 			}
 
 			is_voting = false
@@ -60,12 +62,12 @@
 			/>
 		</div>
 		<div class="border-l-2 border-primary w-full">
-		<LeaderVote
-			on:submit_vote={(e) => submit_vote(e.detail.winner)}
-			leader={matchups[0][leaders[1]]}
-			animation_duration={as.speed}
-			loser={loser?.id === matchups[0][leaders[1]].id}
-		/>
-        </div>
+			<LeaderVote
+				on:submit_vote={(e) => submit_vote(e.detail.winner)}
+				leader={matchups[0][leaders[1]]}
+				animation_duration={as.speed}
+				loser={loser?.id === matchups[0][leaders[1]].id}
+			/>
+		</div>
 	{/if}
 </div>

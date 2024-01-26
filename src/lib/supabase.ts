@@ -9,6 +9,69 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      categories: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string | null
+          name: string
+          slug: string
+          wikipedia_link: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          name: string
+          slug: string
+          wikipedia_link?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          name?: string
+          slug?: string
+          wikipedia_link?: string | null
+        }
+        Relationships: []
+      }
+      leader_categories: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          leader: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          id?: string
+          leader: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          leader?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "leader_categories_category_fkey"
+            columns: ["category"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["slug"]
+          },
+          {
+            foreignKeyName: "leader_categories_leader_fkey"
+            columns: ["leader"]
+            isOneToOne: false
+            referencedRelation: "leaders"
+            referencedColumns: ["wikipedia_link"]
+          }
+        ]
+      }
       leader_states: {
         Row: {
           created_at: string
@@ -47,7 +110,6 @@ export interface Database {
       }
       leaders: {
         Row: {
-          active: boolean
           created_at: string
           id: string
           image_url: string
@@ -56,7 +118,6 @@ export interface Database {
           wikipedia_link: string
         }
         Insert: {
-          active?: boolean
           created_at?: string
           id?: string
           image_url: string
@@ -65,7 +126,6 @@ export interface Database {
           wikipedia_link: string
         }
         Update: {
-          active?: boolean
           created_at?: string
           id?: string
           image_url?: string
@@ -101,24 +161,34 @@ export interface Database {
       }
       votes: {
         Row: {
+          category: string
           created_at: string
           id: string
           loser: string
           winner: string
         }
         Insert: {
+          category?: string
           created_at?: string
           id?: string
           loser: string
           winner: string
         }
         Update: {
+          category?: string
           created_at?: string
           id?: string
           loser?: string
           winner?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "votes_category_fkey"
+            columns: ["category"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["slug"]
+          },
           {
             foreignKeyName: "votes_loser_fkey"
             columns: ["loser"]
@@ -141,7 +211,9 @@ export interface Database {
     }
     Functions: {
       leaderboard: {
-        Args: Record<PropertyKey, never>
+        Args: {
+          category: string
+        }
         Returns: {
           leader_name: string
           image_url: string

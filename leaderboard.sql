@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION leaderboard()
+CREATE OR REPLACE FUNCTION leaderboard(leaderboard_category text)
 RETURNS TABLE (
   leader_name text,
   image_url text,
@@ -20,11 +20,17 @@ BEGIN
     COUNT(CASE WHEN votes.winner != leaders.id THEN 1 END) AS total_losses,
     COUNT(CASE WHEN votes.winner = leaders.id THEN 1 END)::numeric / COUNT(*)::numeric AS win_percentage
   FROM
+    leader_categories
+  JOIN
     leaders
+  ON
+    leaders.wikipedia_link = leader_categories.leader
   JOIN
     votes
   ON
     votes.winner = leaders.id or votes.loser = leaders.id
+  WHERE
+    votes.category = leaderboard_category
   GROUP BY
     leaders.id
   ORDER BY
@@ -34,6 +40,4 @@ END;
 $$
 LANGUAGE plpgsql;
 
-grant execute on function leaderboard() to anon;
-
-SELECT * FROM leaderboard();
+SELECT * FROM leaderboard('current');
