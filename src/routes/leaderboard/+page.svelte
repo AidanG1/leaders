@@ -35,7 +35,7 @@
         <tbody>
             {#each leaders as leader}
                 <tr class="border-y-2">
-                    <td><img src={leader.image_url} alt={leader.leader_name} class="h-24 rounded-lg w-auto shadow-md"/></td>
+                    <td><img src={leader.image_url} alt={leader.leader_name} class="h-24 rounded-lg w-auto shadow-md" loading="lazy"/></td>
                     <td class="text-xl text-primary"><a href="https://en.wikipedia.org/wiki/{leader.wikipedia_link}">{leader.leader_name}</a></td>
                     <td>{leader.total_wins}</td>
                     <td>{leader.total_losses}</td>
