@@ -52,17 +52,21 @@
 	{#if matchups.length === 0}
 		<h1>Loading...</h1>
 	{:else}
-		<LeaderVote
-			on:submit_vote={(e) => submit_vote(e.detail.winner)}
-			leader={matchups[0][leaders[0]]}
-			{animation_duration}
-			loser={loser?.id === matchups[0][leaders[0]].id}
-		/>
+		<div class="border-r-2 border-primary">
+			<LeaderVote
+				on:submit_vote={(e) => submit_vote(e.detail.winner)}
+				leader={matchups[0][leaders[0]]}
+				{animation_duration}
+				loser={loser?.id === matchups[0][leaders[0]].id}
+			/>
+		</div>
+		<div class="border-l-2 border-primary">
 		<LeaderVote
 			on:submit_vote={(e) => submit_vote(e.detail.winner)}
 			leader={matchups[0][leaders[1]]}
 			{animation_duration}
 			loser={loser?.id === matchups[0][leaders[1]].id}
 		/>
+        </div>
 	{/if}
 </div>

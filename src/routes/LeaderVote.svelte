@@ -41,9 +41,9 @@
 			div.animate(
 				[
 					{ transform: 'translateX(0) scale(1)', backgroundColor: 'initial' },
-					{ transform: 'translateX(100%) scale(0.5)', backgroundColor: 'red' },
+					{ transform: 'translateX(50%) scale(0.5)', backgroundColor: 'red' },
 					{ transform: 'translateX(0) scale(1)', backgroundColor: 'initial' },
-					{ transform: 'translateX(-100%) scale(0.5)', backgroundColor: 'red' },
+					{ transform: 'translateX(-50%) scale(0.5)', backgroundColor: 'red' },
 					{ transform: 'translateX(0) scale(1)', backgroundColor: 'initial' }
 				],
 				{
