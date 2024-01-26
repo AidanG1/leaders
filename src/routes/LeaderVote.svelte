@@ -42,14 +42,12 @@
 		if (loser) {
 			div.animate(
 				[
-					{ transform: 'translateX(0) scale(1)', backgroundColor: 'initial' },
-					{ transform: 'translateX(50%) scale(0.5)', backgroundColor: 'red' },
-					{ transform: 'translateX(0) scale(1)', backgroundColor: 'initial' },
-					{ transform: 'translateX(-50%) scale(0.5)', backgroundColor: 'red' },
-					{ transform: 'translateX(0) scale(1)', backgroundColor: 'initial' }
+					{ transform: 'scale(1)', backgroundColor: 'initial' },
+					{ transform: 'scale(0.5) rotate(360deg)', backgroundColor: 'red' },
+					{ transform: 'scale(0) rotate(1200deg)', backgroundColor: 'initial' }
 				],
 				{
-					duration: animation_duration,
+					duration: animation_duration + 500,
 					easing: 'ease-in-out'
 				}
 			)
@@ -65,18 +63,18 @@
 	})
 </script>
 
-<div class="p-2 h-screen flex justify-center flex-col" in:fly out:slide bind:this={div}>
-	<button on:click={() => submit_vote(leader)} class="flex justify-center">
+<div class="p-2" in:fly out:slide bind:this={div}>
+	<button on:click={() => submit_vote(leader)} class="flex justify-center w-full max-w-1/2">
 		{#if show_image}
 			<img
 				src={leader.image_url}
 				alt={leader.name}
-				class="h-96 rounded-lg border-primary border-2 hover:scale-110 transition-transform shadow-md"
+				class="md:h-96 rounded-lg border-primary border-2 hover:scale-110 transition-transform shadow-md"
 			/>
 		{/if}
 	</button>
 	<h2 class="text-center mt-4">
-		<a href="https://en.wikipedia.org/wiki/{leader.wikipedia_link}" class="text-primary text-3xl">
+		<a href="https://en.wikipedia.org/wiki/{leader.wikipedia_link}" class="text-primary text-2xl">
 			{leader.name} <span class="text-secondary">{leader.title}</span>
 		</a>
 	</h2>

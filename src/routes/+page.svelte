@@ -48,11 +48,11 @@
 	const leaders: ('leader1' | 'leader2')[] = ['leader1', 'leader2']
 </script>
 
-<div class="grid md:grid-cols-2 justify-center content-center">
+<div class="grid grid-cols-2 h-full justify-items-center w-screen">
 	{#if matchups.length === 0}
 		<h1>Loading...</h1>
 	{:else}
-		<div class="border-r-2 border-primary">
+		<div class="border-r-2 border-primary w-full">
 			<LeaderVote
 				on:submit_vote={(e) => submit_vote(e.detail.winner)}
 				leader={matchups[0][leaders[0]]}
@@ -60,7 +60,7 @@
 				loser={loser?.id === matchups[0][leaders[0]].id}
 			/>
 		</div>
-		<div class="border-l-2 border-primary">
+		<div class="border-l-2 border-primary w-full">
 		<LeaderVote
 			on:submit_vote={(e) => submit_vote(e.detail.winner)}
 			leader={matchups[0][leaders[1]]}
