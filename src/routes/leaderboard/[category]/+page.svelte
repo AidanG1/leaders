@@ -9,6 +9,7 @@
 <table class="table w-screen">
 	<thead>
 		<tr>
+			<th>Rank</th>
 			<th>Image</th>
 			<th>Name</th>
 			<th>Wins</th>
@@ -17,8 +18,9 @@
 		</tr>
 	</thead>
 	<tbody>
-		{#each data.leaders as leader}
+		{#each data.leaders as leader, i}
 			<tr class="border-y-2">
+				<td>{i + 1}</td>
 				<td>
 					<img
 						src={leader.image_url}
