@@ -3,6 +3,9 @@
 </script>
 
 <h1>Leaderboard</h1>
+<a class="btn btn-primary w-full my-2" href="/vote/{data.category}">
+	<h3 class="w-full text-center">Vote!</h3>
+</a>
 <table class="table w-screen">
 	<thead>
 		<tr>
@@ -36,6 +39,3 @@
 		{/each}
 	</tbody>
 </table>
-<a class="btn btn-primary w-full" href="/vote/{data.category}">
-	<h3 class="w-full text-center">Vote!</h3>
-</a>

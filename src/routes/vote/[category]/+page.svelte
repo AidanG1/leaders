@@ -71,7 +71,7 @@
 		</div>
 	{/if}
 </div>
-<a class="btn btn-primary w-full" href="/leaderboard/{data.category}">
+<a class="btn btn-primary w-full my-2" href="/leaderboard/{data.category}">
 	<h3 class="w-full text-center">View Leaderboard</h3>
 </a>
 

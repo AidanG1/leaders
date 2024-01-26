@@ -31,6 +31,9 @@ export async function GET({ params }) {
             leader1: data[Math.floor(Math.random() * data.length)].leader,
             leader2: data[Math.floor(Math.random() * data.length)].leader
         }
+        while (matchup.leader1 === matchup.leader2) {
+            matchup.leader2 = data[Math.floor(Math.random() * data.length)].leader
+        }
         matchups.push(matchup)
     }
 
