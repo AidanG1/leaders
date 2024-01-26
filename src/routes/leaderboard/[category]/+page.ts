@@ -11,7 +11,10 @@ export const load = async ({params}) => {
 
     if (!leaders) leaders = []
 
+    const category = params.category
+
     return {
-        leaders
+        leaders,
+        category
     }
 }

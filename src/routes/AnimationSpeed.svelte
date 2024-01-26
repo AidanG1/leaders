@@ -21,10 +21,16 @@
 	})
 </script>
 
-<input
-	type="range"
-	min={as.get_min()}
-	max={as.get_max()}
-	bind:value={as.speed}
-	class="range range-primary"
-/>
+
+<div class="form-control">
+	<label class="label cursor-pointer">
+		<span class="label-text mr-2">Animation Speed</span>
+		<input
+			type="range"
+			min={as.get_min()}
+			max={as.get_max()}
+			bind:value={as.speed}
+			class="range range-primary"
+		/>
+	</label>
+</div>

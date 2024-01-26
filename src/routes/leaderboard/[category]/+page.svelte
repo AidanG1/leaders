@@ -16,16 +16,17 @@
 	<tbody>
 		{#each data.leaders as leader}
 			<tr class="border-y-2">
-				<td
-					><img
+				<td>
+					<img
 						src={leader.image_url}
 						alt={leader.leader_name}
 						class="h-24 rounded-lg w-auto shadow-md"
 						loading="lazy"
-					/></td
-				>
+					/>
+				</td>
 				<td class="text-xl text-primary"
-					><a href="https://en.wikipedia.org/wiki/{leader.wikipedia_link}">{leader.leader_name}</a
+					><a href="https://en.wikipedia.org/wiki/{leader.wikipedia_link}" target="_blank"
+						>{leader.leader_name}</a
 					></td
 				>
 				<td>{leader.total_wins}</td>
@@ -35,3 +36,6 @@
 		{/each}
 	</tbody>
 </table>
+<a class="btn btn-primary w-full" href="/vote/{data.category}">
+	<h3 class="w-full text-center">Vote!</h3>
+</a>
