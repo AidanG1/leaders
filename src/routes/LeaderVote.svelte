@@ -13,6 +13,8 @@
 		loser: boolean
 	}>()
 
+	let show_image = $state(false)
+
 	const dispatch = createEventDispatcher()
 
 	function submit_vote(winner: Database['public']['Tables']['leaders']['Row']) {
@@ -53,15 +55,25 @@
 			)
 		}
 	})
+
+	$effect.pre(() => {
+		show_image = false
+
+		tick().then(() => {
+			show_image = true
+		})
+	})
 </script>
 
 <div class="p-2 h-screen flex justify-center flex-col" in:fly out:slide bind:this={div}>
 	<button on:click={() => submit_vote(leader)} class="flex justify-center">
-		<img
-			src={leader.image_url}
-			alt={leader.name}
-			class="h-96 rounded-lg border-primary border-2 hover:scale-110 transition-transform shadow-md"
-		/>
+		{#if show_image}
+			<img
+				src={leader.image_url}
+				alt={leader.name}
+				class="h-96 rounded-lg border-primary border-2 hover:scale-110 transition-transform shadow-md"
+			/>
+		{/if}
 	</button>
 	<h2 class="text-center mt-4">
 		<a href="https://en.wikipedia.org/wiki/{leader.wikipedia_link}" class="text-primary text-3xl">
